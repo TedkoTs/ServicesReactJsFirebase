@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './home.css';
+import Counter from '../components/counter';
 
 // const HomePage = () => {
 
@@ -36,12 +37,8 @@ import './home.css';
 
 class HomePage extends React.Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            message: 'Random text',
-            count: 0
-        }
+    state = {
+        message: 'Random text',
     }
 
     componentDidMount() {
@@ -50,25 +47,12 @@ class HomePage extends React.Component {
         }, 2000)
     }
 
-    increment = () => {
-        const { count } = this.state;
-        this.setState({ count: count + 1 })
-    }
-
-    decrement = () => {
-        const { count } = this.state;
-        this.setState({ count: count - 1 })
-    }
-
     render() {
-        // const { message, count } = this.state;
         return (
             <div className="container">
-                <h1>HomePage</h1>
+                <h1>HomePage Component</h1>
                 <p>{this.state.message}</p>
-                <button onClick={this.increment}>Increment</button>
-                <div className="counter">{this.state.count}</div>
-                <button onClick={this.decrement}>Decrement</button>
+                <Counter title="Counter Component" />
             </div>
         )
     }
