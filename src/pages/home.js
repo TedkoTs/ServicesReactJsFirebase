@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import './home.css';
-import Counter from '../components/counter';
+import React, { useState, useEffect } from "react";
+import "./home.css";
+import Counter from "../components/counter";
 
 // const HomePage = () => {
 
@@ -22,8 +22,6 @@ import Counter from '../components/counter';
 //         }, 2000)
 //     }, [])
 
-
-
 //     return (
 //         <div className="container">
 //             <h1>HomePage</h1>
@@ -36,26 +34,36 @@ import Counter from '../components/counter';
 // }
 //
 class HomePage extends React.Component {
+  state = {
+    message: "Random text"
+  };
 
-    state = {
-        message: 'Random text',
-    }
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ message: "updated" });
+    }, 2000);
+  }
 
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState({ message: 'updated' })
-        }, 2000)
+  displayMessage = (type, count) => {
+    if (type === "incr") {
+      console.log(`incremented by ${count}`);
+      return;
     }
+    console.log(`decremented by ${count}`);
+  };
 
-    render() {
-        return (
-            <div className="container">
-                <h1>HomePage Component</h1>
-                <p>{this.state.message}</p>
-                <Counter title="Counter Component" />
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className="container">
+        <h1>HomePage Component</h1>
+        <p>{this.state.message}</p>
+        <Counter
+          onChange={this.displayMessage}
+          title="Counter Component"
+        />
+      </div>
+    );
+  }
 }
 
 export default HomePage;
