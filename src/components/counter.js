@@ -1,7 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
+
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+
+  return ref.current;
+}
 
 const Counter = props => {
   const [count, setCount] = useState(0);
+  const prevCount = usePrevious(count);
 
   const increment = () => {
     setCount(count + 1);
@@ -17,7 +27,9 @@ const Counter = props => {
     <div>
       <h1>{props.title}</h1>
       <button onClick={increment}>Increment</button>
-      <div className="counter">{count}</div>
+      <div className="counter">Current: {count}</div>
+      <div className="counter">Previous: {prevCount}</div>
+
       <button onClick={decrement}>Decrement</button>
     </div>
   );
