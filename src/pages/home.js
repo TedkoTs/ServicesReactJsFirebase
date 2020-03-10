@@ -34,7 +34,7 @@ import Counter from '../components/counter';
 //         </div>
 //     )
 // }
-
+//
 class HomePage extends React.Component {
 
     state = {
