@@ -1,4 +1,7 @@
 import React from "react";
+import { Provider } from "react-redux";
+import initStore from "./store";
+
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import HomePage from "./pages/home";
@@ -11,10 +14,11 @@ import LoginPage from "./pages/Login";
 import RegisterRage from "./pages/Register";
 
 
+const store = initStore()
 
 function App() {
   return (
-    <div>
+    <Provider store={store}>
       <Router>
         <Navbar />
         <Navbar id="navbar-clone" />
@@ -40,7 +44,7 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </div>
+    </Provider>
   );
 }
 

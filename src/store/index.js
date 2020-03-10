@@ -1,3 +1,24 @@
+import { createStore, combineReducers } from 'redux';
+
+const initStore = () => {
+  const serviceApp = combineReducers({
+    service: () => ({testingData: 'HeLLo', testingNumber: 333})
+  })
+
+  const store = createStore(serviceApp, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+
+  return store
+}
+
+export default initStore
+
+
+
+
+
+
+
+
 const services = [
   {
     id: "2asd8sa7d98",

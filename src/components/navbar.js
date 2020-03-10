@@ -13,7 +13,7 @@ const Navbar = props => {
       <div className="container">
         <div className="navbar-brand">
           <Link to="/" className="navbar-item">
-            <div className="title">Servicio</div>
+            <div className="title">Services</div>
           </Link>
 
           <a className="navbar-item is-hidden-desktop is-hidden-tablet">
