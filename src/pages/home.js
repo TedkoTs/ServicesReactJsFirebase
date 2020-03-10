@@ -1,7 +1,5 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 import React from "react";
-import Navbar from "../components/navbar";
-import NavbarClone from "../components/navbarClone";
 import { getServices } from "../store/index";
 import ServiceItem from "../components/service/serviceItem";
 import Hero from "../components/hero";
@@ -25,8 +23,6 @@ class Home extends React.Component {
   render() {
     return (
       <div>
-        <Navbar />
-        <NavbarClone />
         <Hero />
         <section className="section section-feature-grey is-medium">
           <div className="container">
