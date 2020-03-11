@@ -29,7 +29,7 @@ class Home extends React.Component {
             <div className="title-wrapper has-text-centered">
               <h2 className="title is-2">Great Power Comes </h2>
               <h3 className="subtitle is-5 is-muted">
-                With great Responsability
+                With great Responsibility
               </h3>
               <div className="divider is-centered"></div>
             </div>
