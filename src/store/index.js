@@ -1,45 +1,44 @@
-import { createStore, combineReducers } from "redux";
-import servicesReducer from "../reducers/index";
+import { createStore } from "redux";
+import serviceApp from "../reducers/index";
 
-const addLoggerToDispatch = store => {
-  const dispatch = store.dispatch;
-
-  return action => {
-    console.group(action.type);
-    console.log("%c prev state", "color: blue", store.getState());
-    console.log("%c action", "color: green", action);
-    const retrunValue = dispatch(action);
-    console.log("%c next state", "color: red", store.getState());
-    console.groupEnd(action.type);
-    return retrunValue;
-  };
+const logger = store => nextDispatch => action => {
+  console.group(action.type);
+  console.log("%c prev state", "color: blue", store.getState());
+  console.log("%c action", "color: green", action);
+  const retrunValue = nextDispatch(action);
+  console.log("%c next state", "color: red", store.getState());
+  console.groupEnd(action.type);
+  return retrunValue;
 };
 
-const addPromiseToDispatch = store => {
-  const dispatch = store.dispatch;
+const promise = store => nextDispatch => action => {
+  if (typeof action.then === "function") {
+    return action.then(nextDispatch);
+  }
 
-  return action => {
-    if (typeof action.then === "function") {
-      return action.then(dispatch);
-    }
+  return nextDispatch(action);
+};
 
-    return dispatch(action);
-  };
+const applyMiddlewares = (store, middlewares) => {
+  middlewares
+    .slice()
+    .reverse()
+    .forEach(middleware => {
+      store.dispatch = middleware(store)(store.dispatch);
+    });
 };
 
 const initStore = () => {
-  const serviceApp = combineReducers({
-    service: servicesReducer
-  });
-
+  const middlewares = [promise];
+ 
   const store = createStore(
     serviceApp,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
   if (process.env.NODE_ENV !== "production") {
-    store.dispatch = addLoggerToDispatch(store);
+    middlewares.push(logger);
   }
-  store.dispatch = addPromiseToDispatch(store);
+  applyMiddlewares(store, middlewares);
 
   return store;
 };

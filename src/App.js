@@ -12,6 +12,8 @@ import ProfilePage from "./pages/Profile";
 import ServicesPage from "./pages/Services";
 import LoginPage from "./pages/Login";
 import RegisterRage from "./pages/Register";
+import ServiceDetailPage from "./pages/ServiceDetail";
+
 
 
 const store = initStore()
@@ -39,8 +41,11 @@ function App() {
           <Route path="/profile">
             <ProfilePage />
           </Route>
-          <Route path="/services">
+          <Route exact path="/services">
             <ServicesPage />
+          </Route>
+          <Route path="/services/:serviceId">
+            <ServiceDetailPage />
           </Route>
         </Switch>
       </Router>
