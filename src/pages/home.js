@@ -14,13 +14,10 @@ class Home extends React.Component {
     this.props.dispatch(fetchServices());
   }
 
-  renderServices = services => {
-    return services.map(service => (
-      <ServiceItem key={service.id} service={service} />
-    ));
-  };
+  renderServices = (services) => services.map(service => <ServiceItem key={service.id} service={service} />);
 
   render() {
+    const { services } = this.props;
     return (
       <div>
         <Hero />
@@ -36,7 +33,7 @@ class Home extends React.Component {
 
             <div className="content-wrapper">
               <div className="columns">
-                {this.renderServices(this.props.services)}
+                {this.renderServices(services)}
               </div>
             </div>
           </div>
@@ -46,6 +43,6 @@ class Home extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ services: state.services.items });
+const mapStateToProps = state => ({ services: state.services.all });
 
 export default connect(mapStateToProps)(Home);
