@@ -1,7 +1,7 @@
 import { createStore, combineReducers } from "redux";
 import servicesReducer from "../reducers/index";
 
-const addLoggerToDispach = store => {
+const addLoggerToDispatch = store => {
   const dispatch = store.dispatch;
 
   return action => {
@@ -15,6 +15,18 @@ const addLoggerToDispach = store => {
   };
 };
 
+const addPromiseToDispatch = store => {
+  const dispatch = store.dispatch;
+
+  return action => {
+    if (typeof action.then === "function") {
+      return action.then(dispatch);
+    }
+
+    return dispatch(action);
+  };
+};
+
 const initStore = () => {
   const serviceApp = combineReducers({
     service: servicesReducer
@@ -24,8 +36,10 @@ const initStore = () => {
     serviceApp,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );
-
-  store.dispatch = addLoggerToDispach(store);
+  if (process.env.NODE_ENV !== "production") {
+    store.dispatch = addLoggerToDispatch(store);
+  }
+  store.dispatch = addPromiseToDispatch(store);
 
   return store;
 };
