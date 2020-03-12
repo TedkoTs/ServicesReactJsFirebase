@@ -5,14 +5,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { isValidImage, isValidUrl, sameAs } from "../../helpers/validators";
 
-const RegisterForm = () => {
+const RegisterForm = props => {
   const { register, handleSubmit, errors, getValues } = useForm();
-  const getFormData = data => {
-    console.log(data);
-  };
 
   return (
-    <form onSubmit={handleSubmit(getFormData)}>
+    <form onSubmit={handleSubmit(props.onRegister)}>
       <div className="field">
         <div className="control">
           <input
@@ -79,7 +76,9 @@ const RegisterForm = () => {
                 <span className="help is-danger">Avatar is required</span>
               )}
               {errors.avatar.type === "isValidImage" && (
-                <span className="help is-danger">Avatart extention is not valid</span>
+                <span className="help is-danger">
+                  Avatart extention is not valid
+                </span>
               )}
               {errors.avatar.type === "isValidUrl" && (
                 <span className="help is-danger">Avatart url is not valid</span>
@@ -121,7 +120,7 @@ const RegisterForm = () => {
             ref={register({
               required: true,
               minLength: 6,
-              validate: {sameAs: sameAs(getValues, 'password')}
+              validate: { sameAs: sameAs(getValues, "password") }
             })}
             name="passwordConfirmation"
             className="input is-large"
@@ -142,9 +141,7 @@ const RegisterForm = () => {
                 </span>
               )}
               {errors.passwordConfirmation.type === "sameAs" && (
-                <span className="help is-danger">
-                  not matching
-                </span>
+                <span className="help is-danger">not matching</span>
               )}
             </div>
           )}

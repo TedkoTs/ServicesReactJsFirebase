@@ -1,9 +1,31 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
-import React from "react";
+import React, { useState } from "react";
 import RegisterForm from "../components/auth/RegisterForm";
+import { register } from "../actions/index";
+import { useToasts } from "react-toast-notifications";
+import { Redirect } from "react-router-dom";
 
-const Register = () => {
+const Register = props => {
+  const { addToast } = useToasts();
+  const [redirect, setRedirect] = useState(false);
+
+  const registerUser = userData => {
+    register(userData).then(
+      _ => setRedirect(true),
+      errorMessage =>
+        addToast(errorMessage, {
+          appearance: "error",
+          autoDismissTimeout: 3000,
+          autoDismiss: true
+        })
+    );
+  };
+
+  if (redirect) {
+    return <Redirect to="/" />;
+  }
+
   return (
     <div className="auth-page">
       <div className="container has-text-centered">
@@ -14,7 +36,7 @@ const Register = () => {
             <figure className="avatar">
               <img src="https://placehold.it/128x128" alt="email logo" />
             </figure>
-            <RegisterForm />
+            <RegisterForm onRegister={registerUser} />
           </div>
           <p className="has-text-grey">
             <a>Sign In With Google</a>&nbsp;

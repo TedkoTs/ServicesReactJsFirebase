@@ -1,6 +1,7 @@
 import React from "react";
 import { Provider } from "react-redux";
 import initStore from "./store";
+import { ToastProvider } from "react-toast-notifications";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -14,41 +15,41 @@ import LoginPage from "./pages/Login";
 import RegisterRage from "./pages/Register";
 import ServiceDetailPage from "./pages/ServiceDetail";
 
-
-
-const store = initStore()
+const store = initStore();
 
 function App() {
   return (
     <Provider store={store}>
-      <Router>
-        <Navbar />
-        <Navbar id="navbar-clone" />
-        <Sidebar />
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
-          <Route path="/faq">
-            <FaqPage />
-          </Route>
-          <Route path="/login">
-            <LoginPage />
-          </Route>
-          <Route path="/register">
-            <RegisterRage />
-          </Route>
-          <Route path="/profile">
-            <ProfilePage />
-          </Route>
-          <Route exact path="/services">
-            <ServicesPage />
-          </Route>
-          <Route path="/services/:serviceId">
-            <ServiceDetailPage />
-          </Route>
-        </Switch>
-      </Router>
+      <ToastProvider>
+        <Router>
+          <Navbar />
+          <Navbar id="navbar-clone" />
+          <Sidebar />
+          <Switch>
+            <Route exact path="/">
+              <HomePage />
+            </Route>
+            <Route path="/faq">
+              <FaqPage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <Route path="/register">
+              <RegisterRage />
+            </Route>
+            <Route path="/profile">
+              <ProfilePage />
+            </Route>
+            <Route exact path="/services">
+              <ServicesPage />
+            </Route>
+            <Route path="/services/:serviceId">
+              <ServiceDetailPage />
+            </Route>
+          </Switch>
+        </Router>
+      </ToastProvider>
     </Provider>
   );
 }
