@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
-import {
-  fetchServiceById,
-} from "../actions/index";
+import { fetchServiceById } from "../actions/index";
 import Spinner from "../components/Spinner.js";
 
 const ServiceDetail = props => {
@@ -16,11 +14,7 @@ const ServiceDetail = props => {
 
   const { service } = props;
 
-  if (serviceId !== service.id) {
-    return <Spinner />;
-  }
-
-  if (isFetching && !service.id) {
+  if (isFetching || serviceId !== service.id) {
     return <Spinner />;
   }
 

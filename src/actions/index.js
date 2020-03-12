@@ -6,17 +6,25 @@ import {
 import * as api from "../api/index";
 
 export const fetchServices = () => dispatch => {
-  return api.fetchServices().then(services => dispatch({
-    type: FETCH_SERVICES_SUCCESS,
-    services
-  }));
+  return api.fetchServices().then(services =>
+    dispatch({
+      type: FETCH_SERVICES_SUCCESS,
+      services
+    })
+  );
 };
 
-export const fetchServiceById = serviceId => dispatch => {
-  dispatch({ type: FETCH_SERVICE_SUCCESS, service: {} });
+export const fetchServiceById = serviceId => (dispatch, getState) => {
+  const lastService = getState().selectedService.item;
+  if (lastService.id && lastService.id === serviceId) {
+    return Promise.resolve();
+  }
+
   dispatch({ type: REQUEST_SERVICE });
-  return api.fetchServiceById(serviceId).then(service => dispatch({
-    type: FETCH_SERVICE_SUCCESS,
-    service
-  }));
+  return api.fetchServiceById(serviceId).then(service =>
+    dispatch({
+      type: FETCH_SERVICE_SUCCESS,
+      service
+    })
+  );
 };
