@@ -36,3 +36,16 @@ export const register = registerFormData => {
 export const login = loginData => {
   return api.login({ ...loginData });
 };
+
+export const onAuthStateChanged = onAuthCallback =>
+  api.onAuthStateChanged(onAuthCallback);
+
+export const storeAuthUser = authUser => dispatch => {
+  if (authUser) {
+    return api.getUserProfile(authUser.uid).then(userWithProfile => {
+      return userWithProfile;
+    });
+  } else {
+    return;
+  }
+};

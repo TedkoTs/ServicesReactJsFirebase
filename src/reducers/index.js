@@ -1,10 +1,12 @@
+import { combineReducers } from "redux";
 import services from "../reducers/services";
 import selectedService from "../reducers/selectedService";
-import { combineReducers } from "redux";
+import auth from "./auth";
 
 const serviceApp = combineReducers({
   services,
-  selectedService
+  selectedService,
+  auth
 });
 
 export default serviceApp;
