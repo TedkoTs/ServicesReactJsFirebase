@@ -71,3 +71,5 @@ export const getUserProfile = uid => {
     .get()
     .then(snapshot => ({ uid, ...snapshot.data() }));
 };
+
+export const logout = () => firebase.auth().signOut();

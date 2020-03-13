@@ -7,11 +7,15 @@ import FaqPage from "./pages/Faq";
 import ProfilePage from "./pages/Profile";
 import ServicesPage from "./pages/Services";
 import LoginPage from "./pages/Login";
-import RegisterRage from "./pages/Register";
+import RegisterPage from "./pages/Register";
+import SecretPage from "./pages/Secret";
 import ServiceDetailPage from "./pages/ServiceDetail";
 
 const Routes = () => (
   <Switch>
+    <Route path="/secret">
+      <SecretPage />
+    </Route>
     <Route exact path="/">
       <HomePage />
     </Route>
@@ -22,7 +26,7 @@ const Routes = () => (
       <LoginPage />
     </Route>
     <Route path="/register">
-      <RegisterRage />
+      <RegisterPage />
     </Route>
     <Route path="/profile">
       <ProfilePage />

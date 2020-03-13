@@ -1,8 +1,18 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Navbar = props => {
+  useEffect(() => {
+    if (!props.loadFresh) {
+      return;
+    }
+    const script = document.createElement("script");
+    script.src = `${process.env.PUBLIC_URL}/js/fresh.js`;
+    script.async = true;
+    document.body.appendChild(script);
+  }, [props.loadFresh]);
+
   return (
     <nav
       id={props.id || ""}
@@ -81,6 +91,11 @@ const Navbar = props => {
           </div>
 
           <div className="navbar-end">
+            {props.auth.user && (
+              <div className="navbar-item is-secondary user-welcome">
+                {`Hello ${props.auth.user.fullName}`}
+              </div>
+            )}
             <Link to="/" className="navbar-item is-secondary">
               Home
             </Link>
@@ -99,18 +114,29 @@ const Navbar = props => {
                 <a className="navbar-item">Dropdown item</a>
               </div>
             </div>
-            <Link
-              to="/login"
-              className="navbar-item is-secondary modal-trigger"
-              data-modal="auth-modal"
-            >
-              Log in
-            </Link>
-            <Link to="/register" className="navbar-item">
-              <span className="button signup-button rounded secondary-btn raised">
-                Sign up
-              </span>
-            </Link>
+            {!props.auth.isAuth && (
+              <React.Fragment>
+                <Link
+                  to="/login"
+                  className="navbar-item is-secondary modal-trigger"
+                  data-modal="auth-modal"
+                >
+                  Log in
+                </Link>
+                <Link to="/register" className="navbar-item">
+                  <span className="button signup-button rounded secondary-btn raised">
+                    Sign up
+                  </span>
+                </Link>
+              </React.Fragment>
+            )}
+            {props.auth.isAuth && (
+              <div onClick={props.logout} to="/" className="navbar-item">
+                <span className="button signup-button is-danger rounded raised">
+                  Log out
+                </span>
+              </div>
+            )}
           </div>
         </div>
       </div>
