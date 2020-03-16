@@ -1,24 +1,26 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
+
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
-import { login } from "../actions/index";
+import {useForm} from "react-hook-form";
 import { useToasts } from "react-toast-notifications";
 import { Redirect } from "react-router-dom";
+import onlyGuest from "../components/hoc/onlyGuest";
+
+import { login } from "../actions/index";
 
 const Login = () => {
-  const { addToast } = useToasts();
   const [redirect, setRedirect] = useState(false);
   const { register, handleSubmit } = useForm();
+  const { addToast } = useToasts();
 
   const onLogin = loginData => {
-    login(loginData)
-    .then(
+    login(loginData).then(
       _ => setRedirect(true),
       errorMessage =>
         addToast(errorMessage, {
           appearance: "error",
-          autoDismissTimeout: 3000,
-          autoDismiss: true
+          autoDismiss: true,
+          autoDismissTimeout: 3000
         })
     );
   };
@@ -35,7 +37,7 @@ const Login = () => {
           <p className="subtitle has-text-grey">Please login to proceed.</p>
           <div className="box">
             <figure className="avatar">
-              <img src="https://placehold.it/128x128" alt="some logo" />
+              <img src="https://placehold.it/128x128" alt="Company Logo" />
             </figure>
             <form onSubmit={handleSubmit(onLogin)}>
               <div className="field">
@@ -81,4 +83,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default onlyGuest(Login);
