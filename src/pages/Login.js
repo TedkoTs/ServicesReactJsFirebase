@@ -16,8 +16,8 @@ const Login = () => {
   const onLogin = loginData => {
     login(loginData).then(
       _ => setRedirect(true),
-      errorMessage =>
-        addToast(errorMessage, {
+      error =>
+        addToast(error.message, {
           appearance: "error",
           autoDismiss: true,
           autoDismissTimeout: 3000

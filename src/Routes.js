@@ -10,31 +10,39 @@ import LoginPage from "./pages/Login";
 import RegisterPage from "./pages/Register";
 import SecretPage from "./pages/Secret";
 import ServiceDetailPage from "./pages/ServiceDetail";
+import ServiceCreatePage from "./pages/services/ServiceCreate";
+import UserServicesPage from "./pages/services/UserService";
 
 const Routes = () => (
   <Switch>
-    <Route path="/secret">
+    <Route exact path="/secret">
       <SecretPage />
     </Route>
     <Route exact path="/">
       <HomePage />
     </Route>
-    <Route path="/faq">
+    <Route exact path="/faq">
       <FaqPage />
     </Route>
-    <Route path="/login">
+    <Route exact path="/login">
       <LoginPage />
     </Route>
-    <Route path="/register">
+    <Route exact path="/register">
       <RegisterPage />
     </Route>
-    <Route path="/profile">
+    <Route exact path="/profile">
       <ProfilePage />
     </Route>
     <Route exact path="/services">
       <ServicesPage />
     </Route>
-    <Route path="/services/:serviceId">
+    <Route exact path="/services/me">
+      <UserServicesPage />
+    </Route>
+    <Route exact path="/services/new">
+      <ServiceCreatePage />
+    </Route>
+    <Route exact path="/services/:serviceId">
       <ServiceDetailPage />
     </Route>
   </Switch>

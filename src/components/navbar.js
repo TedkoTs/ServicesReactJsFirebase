@@ -105,15 +105,20 @@ const Navbar = props => {
             <Link to="/faq" className="navbar-item is-secondary">
               FAQ
             </Link>
-            <div className="navbar-item has-dropdown is-hoverable">
-              <a className="navbar-link">Dropdown</a>
+            {props.auth.isAuth && (
+              <div className="navbar-item has-dropdown is-hoverable">
+                <a className="navbar-link">Manage</a>
 
-              <div className="navbar-dropdown">
-                <a className="navbar-item">Dropdown item</a>
-                <a className="navbar-item">Dropdown item</a>
-                <a className="navbar-item">Dropdown item</a>
+                <div className="navbar-dropdown">
+                  <Link to="/services/new" className="navbar-item">
+                    Create service
+                  </Link>
+                  <Link to="/services/me" className="navbar-item">
+                    My services
+                  </Link>
+                </div>
               </div>
-            </div>
+            )}
             {!props.auth.isAuth && (
               <React.Fragment>
                 <Link

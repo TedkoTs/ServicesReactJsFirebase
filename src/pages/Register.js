@@ -15,8 +15,8 @@ const Register = props => {
   const registerUser = userData => {
     register(userData).then(
       _ => setRedirect(true),
-      errorMessage =>
-        addToast(errorMessage, {
+      error =>
+        addToast(error.message, {
           appearance: "error",
           autoDismissTimeout: 3000,
           autoDismiss: true

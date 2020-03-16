@@ -61,6 +61,20 @@ export const fetchServices = () => {
     });
 };
 
+export const fetchUserServices = userId => {
+  return db
+    .collection("services")
+    .where("user", "==", userId)
+    .get()
+    .then(snapshot => {
+      const services = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      return services;
+    });
+};
+
 export const onAuthStateChanged = onAuthCallback =>
   firebase.auth().onAuthStateChanged(onAuthCallback);
 
@@ -73,3 +87,10 @@ export const getUserProfile = uid => {
 };
 
 export const logout = () => firebase.auth().signOut();
+
+export const createService = newService => {
+  return db
+    .collection("services")
+    .add(newService)
+    .then(docRef => docRef.id);
+};

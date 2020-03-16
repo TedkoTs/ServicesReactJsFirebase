@@ -3,7 +3,8 @@ import {
   FETCH_SERVICE_SUCCESS,
   REQUEST_SERVICE,
   SET_AUTH_USER,
-  RESET_AUTH_STATE
+  RESET_AUTH_STATE,
+  FETCH_USER_SERVICES_SUCCESS
 } from "../types/index";
 import * as api from "../api/index";
 
@@ -14,6 +15,14 @@ export const fetchServices = () => dispatch => {
       services
     })
   );
+};
+
+export const fetchUserServices = userId => dispatch => {
+  return api
+    .fetchUserServices(userId)
+    .then(services =>
+      dispatch({ type: FETCH_USER_SERVICES_SUCCESS, services })
+    );
 };
 
 export const fetchServiceById = serviceId => (dispatch, getState) => {
@@ -43,7 +52,7 @@ export const onAuthStateChanged = onAuthCallback =>
   api.onAuthStateChanged(onAuthCallback);
 
 export const storeAuthUser = authUser => dispatch => {
-  dispatch({type: RESET_AUTH_STATE})
+  dispatch({ type: RESET_AUTH_STATE });
   if (authUser) {
     return api
       .getUserProfile(authUser.uid)
@@ -59,3 +68,9 @@ export const logout = () => dispatch => {
   api.logout().then(_ => dispatch({ user: null, type: SET_AUTH_USER }));
 };
 
+export const createService = (newService, userId) => {
+  newService.price = parseInt(newService.price, 10);
+  newService.user = userId;
+
+  return api.createService(newService);
+};

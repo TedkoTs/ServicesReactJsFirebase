@@ -5,8 +5,8 @@ import { Redirect } from "react-router-dom";
 const withAuthorisation = Component => {
   class WithAuthorisation extends React.Component {
     render() {
-      const { auth, dispatch, ...rest } = this.props;
-      return auth.isAuth ? <Component {...rest} /> : <Redirect to="/login" />;
+      const { auth } = this.props;
+      return auth.isAuth ? <Component {...this.props} /> : <Redirect to="/login" />;
     }
   }
 
