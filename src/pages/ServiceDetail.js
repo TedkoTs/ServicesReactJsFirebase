@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchServiceById } from "../actions/index";
 import Spinner from "../components/Spinner.js";
+import OfferModal from "../components/service/OfferModal";
 
 const ServiceDetail = props => {
   const { serviceId } = useParams();
@@ -30,13 +31,11 @@ const ServiceDetail = props => {
             </div>
             <div className="column is-6 is-offset-1">
               <h1 className="title is-2">{service.title}</h1>
-              <h2 className="subtitle is-4">{service.decription}</h2>
+              <h2 className="subtitle is-4">{service.description}</h2>
               <br />
-              <p className="has-text-centered">
-                <button className="button is-medium is-info is-outlined">
-                  Learn more
-                </button>
-              </p>
+              <div className="has-text-centered">
+                <OfferModal service={service}/>
+              </div>
             </div>
           </div>
         </div>
