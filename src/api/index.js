@@ -94,3 +94,6 @@ export const createService = newService => {
     .add(newService)
     .then(docRef => docRef.id);
 };
+
+export const createRef = (collection, docId) =>
+  db.doc(`${collection}/` + docId);
