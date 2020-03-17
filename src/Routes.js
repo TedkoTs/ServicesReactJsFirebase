@@ -12,9 +12,17 @@ import SecretPage from "./pages/Secret";
 import ServiceDetailPage from "./pages/ServiceDetail";
 import ServiceCreatePage from "./pages/services/ServiceCreate";
 import UserServicesPage from "./pages/services/UserService";
+import ReceivedOffersPage from "./pages/offers/ReceivedOffers";
+import SentOffersPage from "./pages/offers/SentOffers";
 
 const Routes = () => (
   <Switch>
+    <Route exact path="/offers/received">
+      <ReceivedOffersPage />
+    </Route>
+    <Route exact path="/offers/sent">
+      <SentOffersPage />
+    </Route>
     <Route exact path="/secret">
       <SecretPage />
     </Route>
@@ -29,6 +37,9 @@ const Routes = () => (
     </Route>
     <Route exact path="/register">
       <RegisterPage />
+    </Route>
+    <Route exact path="/profile">
+      <ProfilePage />
     </Route>
     <Route exact path="/profile">
       <ProfilePage />

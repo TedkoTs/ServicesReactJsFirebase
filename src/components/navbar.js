@@ -116,6 +116,12 @@ const Navbar = props => {
                   <Link to="/services/me" className="navbar-item">
                     My services
                   </Link>
+                  <Link to="/offers/received" className="navbar-item">
+                    Received offers
+                  </Link>
+                  <Link to="/offers/sent" className="navbar-item">
+                    Sent offers
+                  </Link>
                 </div>
               </div>
             )}

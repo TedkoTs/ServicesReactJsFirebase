@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import Modal from "../../components/modal";
+import { createRef, createOffer } from "../../actions/index";
+import { useToasts } from "react-toast-notifications";
 
-const OfferModal = ({ service }) => {
+const OfferModal = ({ service, auth }) => {
+  const { addToast } = useToasts();
+
   const [offer, setOffer] = useState({
     fromUser: "",
     toUser: "",
@@ -21,8 +25,28 @@ const OfferModal = ({ service }) => {
     return setOffer({ ...offer, [name]: value });
   };
 
-  const handleSubmit = () => {
-    console.log(offer);
+  const handleSubmit = closeModal => {
+    const offerCopy = { ...offer };
+
+    offerCopy.fromUser = createRef("profiles", auth.user.uid);
+    offerCopy.toUser = createRef("profiles", service.user.id);
+    offerCopy.service = createRef("services", service.id);
+    offerCopy.time = parseInt(offer.time, 10);
+
+    createOffer(offerCopy).then(_ => {
+      closeModal();
+      addToast(
+        "Offer successfully created",
+        {
+          appearance: "success",
+          autoDismissTimeout: 3000,
+          autoDismiss: true
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    });
   };
 
   return (
@@ -55,7 +79,8 @@ const OfferModal = ({ service }) => {
       </div>
       <div className="service-price has-text-centered">
         <div className="service-price-title">
-          {service.user && `Uppon acceptance ${service.user.fullName} will charge you:`}
+          {service.user &&
+            `Uppon acceptance ${service.user.fullName} will charge you:`}
         </div>
         <div className="service-price-value">
           <h1 className="title">$ {offer.price}</h1>

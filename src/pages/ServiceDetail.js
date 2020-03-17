@@ -13,7 +13,7 @@ const ServiceDetail = props => {
     fetchServiceById(serviceId);
   }, [serviceId, fetchServiceById]);
 
-  const { service } = props;
+  const { service, auth } = props;
 
   if (isFetching || serviceId !== service.id) {
     return <Spinner />;
@@ -34,7 +34,7 @@ const ServiceDetail = props => {
               <h2 className="subtitle is-4">{service.description}</h2>
               <br />
               <div className="has-text-centered">
-                <OfferModal service={service}/>
+                <OfferModal service={service} auth={auth} />
               </div>
             </div>
           </div>
@@ -55,10 +55,11 @@ const ServiceDetail = props => {
   );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = ({selectedService, auth}) => {
   return {
-    service: state.selectedService.item,
-    isFetching: state.selectedService.isFetching
+    service: selectedService.item,
+    isFetching: selectedService.isFetching,
+    auth
   };
 };
 
