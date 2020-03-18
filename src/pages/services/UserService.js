@@ -14,6 +14,7 @@ class UserServices extends React.Component {
 
   render() {
     const { services } = this.props.auth.user;
+    
     return (
       <div className="container">
         <div className="content-wrapper">

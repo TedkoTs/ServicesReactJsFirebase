@@ -7,7 +7,7 @@ import { fetchSentOffers } from "../../actions/index";
 class SentOffers extends React.Component {
   componentDidMount() {
     const { auth } = this.props;
-    this.props.dispatch(fetchSentOffers(auth.user.id));
+    this.props.dispatch(fetchSentOffers(auth.user.uid));
   }
 
   render() {
